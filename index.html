@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Crud</title>
+		<script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+		<script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js"></script>
+		<script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+		<script type="module" src="./index.js"></script>
+		<script>
+			function getInfo() {
+				var fname = document.getElementById("fname").value;
+				var lname = document.getElementById("lname").value;
+				var uname = document.getElementById("uname").value;
+				var pword = document.getElementById("pword").value;
+				var fsubj = document.getElementById("fsubj").value;
+				
+				if (uname === '') {
+					alert("Username field is empty");
+					return
+				} else if (pword === '') {
+					alert("Password field is empty");
+					return;
+				} else if (uname === '' && pword == '') {
+					alert("Username and Password field is empty!");
+					return;
+				} else {
+					return [fname, lname, uname, pword, fsubj];
+				}
+			};
+
+			function C_create() {
+				var inputs = getInfo();
+				CRUD_Create(inputs[0], 	//FirstName
+					inputs[1],	//LastName
+					inputs[2],	//UserName
+					inputs[3],	//PassWord
+					inputs[4]);	//Fav. Subject
+			};
+			
+			function C_read() {
+				document.getElementById('pword').value = "<blank>";
+				var inputs = getInfo();
+				CRUD_Read(inputs[2]);
+				document.getElementById('pword').value = "";
+			};
+			
+			function C_update() {
+				var inputs = getInfo();
+				CRUD_Update(inputs[0],
+					inputs[1],
+					inputs[2],
+					inputs[3],
+					inputs[4]);
+			};
+			
+			function C_delete() {
+				var inputs = getInfo();
+				CRUD_Delete(inputs[2],
+					inputs[3]);
+			};
+		</script>
+		<link rel="stylesheet" href="stylesheet.css">
+  	</head>
+  	<body>
+		<div id="headtag">
+    			<p id="headtitle">CRUD</p>
+		</div>
+			<div id="maingrid">
+				<div id="infoheader">
+					<div id="backheader">
+						<h2>Information:</h2>
+					</div>
+					<form id="form">
+						<input type="text" id="fname" placeholder="First Name"></input>
+						<input type="text" id="lname" placeholder="Last Name"></input>
+						<input type="text" id="uname" placeholder="Username"></input>
+						<input type="password" id="pword" placeholder="Password"></input>
+						<input type="text" id="fsubj" placeholder="Favorite Subject"></input>
+					</form>
+					<div id="functions">
+						<button onclick="C_create()">CREATE</button>
+						<button onclick="C_read()">READ</button>
+						<button onclick="C_update()">UPDATE</button>
+						<button onclick="C_delete()">DELETE</button>
+					</div>
+				</div>
+				<div id="table">
+					<div id="backheader">	
+						<h2>Read Output:</h2>
+					</div>
+					<br>
+						<a id="FirstName">First Name</a>
+						<br> <br>
+						<a id="LastName">Last Name</a>
+						<br> <br>
+						<a id="Username">Username</a>
+						<br> <br>
+						<a id="FavouriteSubject">Favourite Subject</a>
+						<br> <br>
+				</div>
+			</div>
+		</div>
+  	</body>
+</html>
